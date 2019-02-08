@@ -10,7 +10,30 @@
 namespace app\controllers;
 
 
-class TaskController
-{
+use yii\web\Controller;
+use app\models\Task;
 
+class TaskController extends Controller
+{
+    public function actionIndex()
+    {
+        echo "it`s index"; exit;
+    }
+
+    public function actionTest()
+    {
+        $model = new Task([
+            'name' => 1,
+            'text' => 'to do lesson1',
+            'author' => 'lex'
+        ]);
+
+
+        var_dump($model -> validate());
+        var_dump($model -> getErrors());
+        exit;
+
+
+       // var_dump($model);exit;
+    }
 }
