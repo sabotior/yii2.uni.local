@@ -9,9 +9,11 @@
 namespace app\models;
 
 
+use app\validators\AuthorValidator;
 use http\Params;
 use yii\base\Model;
 use yii\validators\RequiredValidator;
+
 
 class Task extends Model
 {
@@ -25,10 +27,14 @@ class Task extends Model
         return [
             [['name'], 'required'],
             [['name', 'text'], 'string'],
-            [['author'], 'authorValidation'],
+           // [['author'], 'authorValidation'],
+           // [['author'], 'app//validator//AuthorValidator',],
+            [['author'], AuthorValidator::class],
+
         ];
     }
 
+  /**
     public function authorValidation($attribute, $params)
     {
         if ($this->$attribute != 'Alex'){
@@ -36,5 +42,6 @@ class Task extends Model
         }
 
     }
+   */
 
 }
