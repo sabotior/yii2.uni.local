@@ -12,6 +12,8 @@ use Yii;
  * @property string $date
  * @property string $description
  * @property int $responsible_id
+ *
+ * @property TaskStatuses $status
  */
 class Tasks extends \yii\db\ActiveRecord
 {
@@ -29,10 +31,10 @@ class Tasks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'date'], 'required'],
-            [['date'], 'safe'],
+            [['name', 'description', 'date'], 'required'],
+            [['deadline','date'], 'safe'],
             [['description'], 'string'],
-            [['responsible_id'], 'integer'],
+            [['creator_id', 'responsible_id', 'status_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -47,7 +49,22 @@ class Tasks extends \yii\db\ActiveRecord
             'name' => 'Name',
             'date' => 'Date',
             'description' => 'Description',
+            'creator_id' => 'Creator ID',
             'responsible_id' => 'Responsible ID',
+            'deadline' => 'Deadline',
+            'status_id' => 'Status ID',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     * Геттер
+     * $model->status - сработает геттер
+     *
+     * hasOne и hasMany
+     */
+    public function getStatus()
+    {
+        return $this->hasOne(TaskStatuses::class, ['id' => 'status_id']);
     }
 }

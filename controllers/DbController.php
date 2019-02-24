@@ -18,20 +18,25 @@ class DbController extends Controller
     {
 
         /**Работа с БД*/
-        /*
+/*
         $db = \Yii::$app->db;
 
+        echo "\n\nqueryAll()\n";
+        var_dump($db->createCommand(
+            "SELECT * FROM test"
+        )->queryAll());
+        echo "\n\nqueryOne()\n";
           var_dump($db->createCommand(
               "SELECT * FROM test WHERE id = 2"
-          )->queryOne());*/
-
-        /* var_dump($db->createCommand(
+          )->queryOne());
+        echo "\n\nqueryScalar()\n";
+         var_dump($db->createCommand(
              "SELECT COUNT(*) FROM test"
          )->queryScalar());
-
+        echo "\n\nqueryColumn()\n";
          var_dump($db->createCommand(
              "SELECT id FROM test"
-         )->queryColumn());*/
+         )->queryColumn());
 
         /*$db->createCommand("DELETE FROM test WHERE id = 5")
             ->execute();
@@ -52,17 +57,34 @@ class DbController extends Controller
         $model->description = "sdgdfgbdfb";
         $model->date = date("Y-m-d");
         $model->responsible_id = 2;
-        $model->save();*/
+        $model->save();//сохранить
+        */
+
+        /** CREATE */
+        /*   $model = new Tasks([
+                'name' => 'Task 5',
+                'date' => date("Y-m-d"),
+                'description' => 'kdjhjfghut',
+                'creator_id' => 1,
+                'responsible_id' => 2,
+                'deadline' => date("Y-m-d"),
+                'status_id' => 1,
+            ]);
+
+            $model->save();*/
+
+
+
 
         /**Поиск одной записи по id*/
-       /*$model = Tasks::findOne([3]);
+       /*$model = Tasks::findOne(8);
         var_dump($model);*/
 
         /**Поиск одной записи по столбцу*/
         /*$model = Tasks::findOne(['name' => 'new Task']);
         var_dump($model);*/
 
-        /**Поиск нескольких записей*/
+        /**Поиск нескольких записей (все не получиться, см дальше*/
         /*var_dump(Tasks::findAll([1, 2, 3]));
         var_dump(Tasks::findAll(['name' => 'Task 1']));*/
 
@@ -83,21 +105,29 @@ class DbController extends Controller
         или
         Tasks::deleteAll(['>', 'id', 5]);*/
 
+        /*
+        $model = Tasks::findOne(8);
+        var_dump($model->status); /** SELECT * FROM tasks
+        */
+        /**  Метод find() возвращает объект запросов,
+         * позволяет спомощью ООП собрать запрос
+         */
+        $model = Tasks::findOne(8);
+        /*var_dump($model->find()); /** SELECT * FROM tasks*/
 
-
-        /*$model = Tasks::findOne(1);
-        var_dump($model); /** SELECT * FROM tasks*/
-
-        /** SELECT 'name', 'description' FROM tasks WHERE status_id > :status_id
+        /**
+         * SELECT 'name', 'description' FROM tasks WHERE status_id > :status_id
          *  AND creator_id = :creator_id LIMIT 10
          */
-        /*$query = $model->find()
+        $query = $model->find()
             ->select(['name', 'description'])
-            ->where('status_id > :stid')
+            ->where(['>', 'status_id', 1])
+            //->where('status_id > :stid')
             ->andWhere(['creator_id', 1])
-            ->limit(10)
-            ->all();
-        */
+            ->limit(10);
+            //->all();
+        var_dump($query);
+
 
         exit;
 
