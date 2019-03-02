@@ -131,6 +131,10 @@ class UserIdentity extends \yii\base\BaseObject implements \yii\web\IdentityInte
      */
     public function validatePassword($password)
     {
+
+          /**
+         \Yii::$app->security->generatePasswordHash('admin')
+         */
         return $this->password === md5($password);
     }
 }

@@ -67,4 +67,10 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TaskStatuses::class, ['id' => 'status_id']);
     }
+
+
+    public function getResponsible()
+    {
+        return $this->hasOne(Users::class, ['id' => 'responsible_id']);
+    }
 }

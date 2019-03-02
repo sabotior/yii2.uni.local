@@ -6,10 +6,12 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+if(!$hide) {
+    $this->title = $model->name;
+    $this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
+    $this->params['breadcrumbs'][] = $this->title;
+    \yii\web\YiiAsset::register($this);
+}
 ?>
 <div class="tasks-view">
 
@@ -28,15 +30,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
+        /* 'template' => "<p>{value}</p>",
+        'options' => [
+                'tag' => "div",
+        ],*/
         'attributes' => [
             'id',
-            'name',
-            'date',
-            'description:ntext',
+            'name:text',
+            'date:date',//формат
+            'description:html',
             'responsible_id',
             'creator_id',
             'deadline',
-            'status_id',
+            //'status_id',
+            [
+                //'label' => 'произвольный вывод атрибута',
+                'label' => 'Статус задачи',
+                'value' => $model->status->name
+            ]
         ],
     ]) ?>
 

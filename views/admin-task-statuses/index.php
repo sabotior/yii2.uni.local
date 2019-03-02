@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\filters\TaskSearch */
+/* @var $searchModel app\models\filters\TaskStatusesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tasks';
+$this->title = 'Task Statuses';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tasks-index">
+<div class="task-statuses-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Tasks', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Task Statuses', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -27,25 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'date',
-            'description:ntext',
-            'responsible_id',
-            //'creator_id',
-            //'deadline',
-            //'status_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
-    <?= \yii\widgets\ListView::widget([
-        'dataProvider' => $dataProvider,
-        'itemView' => 'view', //шаблон (по умолчению шаблона нет)
-        'viewParams' => [
-                'hide' => true
-        ]
-    ]); ?>
-
-
-
 </div>
